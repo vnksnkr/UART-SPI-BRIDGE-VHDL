@@ -4,19 +4,19 @@ use ieee.numeric_std.all;
 
 entity controller is 
     port(
-    	clk          : in std_logic;                     
-        reset 	     : in std_logic;
-        start 	     : in std_logic;
+        clk          : in std_logic;                     
+        reset        : in std_logic;
+        start        : in std_logic;
         from_uart    : in std_logic_vector (7 downto 0);     --data from uart--
         from_spi     : in std_logic_vector (7 downto 0);     --data from spi slave---    
         spi_recieved : in std_logic;
         
-        length	  : out std_logic_vector (4 downto 0);       --- length of data (8 bit or 16 bit)
-        addr	  : out std_logic_vector (1 downto 0);       --- slave address (0,1,2,3)  
-        to_spi	  : out std_logic_vector (7 downto 0);       --- data to be sent to slave---
+        length    : out std_logic_vector (4 downto 0);       --- length of data (8 bit or 16 bit)
+        addr      : out std_logic_vector (1 downto 0);       --- slave address (0,1,2,3)  
+        to_spi    : out std_logic_vector (7 downto 0);       --- data to be sent to slave---
         to_uart   : out std_logic_vector (7 downto 0);      --- data to be sent to uart---
         
-        send_to_spi  : out std_logic;
+	send_to_spi  : out std_logic;
         send_to_uart : out std_logic
         );
 end entity controller;
@@ -26,7 +26,7 @@ architecture RTL of controller is
     signal r_length : std_logic_vector (4 downto 0);
     signal r_addr   : std_logic_vector (1 downto 0);
     signal r_to_spi : std_logic_vector (7 downto 0);
-    
+
 
     signal mode           : std_logic;         -------- read or write mode ----
     signal r_send_to_spi  : std_logic := '0';   
@@ -50,12 +50,12 @@ begin
             case state is
                 when CONFIGURE =>                                           --- configure bridge ----
 		    
-		    if start = '0' or reset = '1' then
+                    if start = '0' or reset = '1' then
                         state <= CONFIGURE;
                     else
                         r_length <= from_uart(4 downto 0);
                         r_addr   <= from_uart(6 downto 5);
-                        mode	 <= from_uart(7);
+                        mode     <= from_uart(7);
                                 
                         if from_uart(7) = '0' then
                             state <= WAIT_DATA;

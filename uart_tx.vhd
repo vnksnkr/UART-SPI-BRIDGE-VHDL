@@ -50,10 +50,12 @@ begin
                         tx_done_r <= '0';
                         if start = '0' then
                             state <= IDLE;
+
                         else
                             tx_busy_r <= '1';
                             bytes <= din;
                             state <= START_s;
+
                         end if;
                  
                     when START_s =>
@@ -63,9 +65,11 @@ begin
                         if clkcnt < CLKS_PER_BIT-1 then
                             clkcnt <= clkcnt + 1;
                             state  <= START_s;
+
                         else
                             clkcnt <= 0;
                             state  <= DATA;
+
                         end if;
                  
                     
@@ -75,27 +79,35 @@ begin
                         if clkcnt < CLKS_PER_BIT -1 then
                             clkcnt <= clkcnt + 1;
                             state <= DATA;
+
                         else 
                      	    clkcnt <= 0;
                      	    if bitcnt < 7 then
+                                
                      	        bitcnt <= bitcnt + 1;
                      	        state  <= DATA;
                      	    else
+                                
                      	        bitcnt <= 0;
                      	        state  <= STOP;
+
                             end if;
+                                
                         end if;
                             
                     when STOP =>
                         tx <= '1';
                         if clkcnt < CLKS_PER_BIT -1 then
+                            
                             clkcnt <= clkcnt +1;
                             state <= STOP;
                         else
+                            
                             clkcnt <= 0;
                             state <= CLEANUP;
                             tx_busy_r <= '0';
                         end if;
+                            
                             
                     when CLEANUP =>
                         clkcnt <= 0;
@@ -106,7 +118,8 @@ begin
                         state <= IDLE;
                     
                     
-                end case;         
+                end case; 
+                    
             end if;             
                  
     end process;

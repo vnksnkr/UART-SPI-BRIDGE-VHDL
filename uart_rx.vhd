@@ -3,9 +3,9 @@ use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
 
 entity uart_rx is
-	generic(
-    	   CLKS_PER_BIT: integer := 434
-    	   );
+    generic (
+        CLKS_PER_BIT: integer := 434
+    	    );
 	port(
     	clk : in std_logic;
         rx  : in std_logic;
@@ -17,8 +17,8 @@ end entity uart_rx;
 
 architecture RTL of uart_rx is
 	
-	type SM is (IDLE,START,DATA,STOP,CLEANUP);
-    signal state : SM := IDLE;
+    type SM is (IDLE,START,DATA,STOP,CLEANUP);
+    signal state     : SM := IDLE;
     
     signal bytes	 : std_logic_vector (7 downto 0);
     signal clkcnt 	 : integer range 0 to CLKS_PER_BIT -1 := 0;
@@ -35,19 +35,19 @@ begin
     	
         if rising_edge(clk) then
         
-        	case state is
+            case state is
             
-            	when IDLE =>
+                when IDLE =>
                 	
-                    bitcnt  <= 0;
-                    clkcnt  <= 0;
+                    bitcnt  <=  0;
+                    clkcnt  <=  0;
                     rx_dv_r <= '0';
                     
-                    if(rx = '0') then
-                    state <= START;
-                    
+                    if rx = '0' then
+                        state <= START;
+                        
                     else
-                    state <= IDLE;
+                        state <= IDLE;
                     end if;
                     
                 when START =>
@@ -60,18 +60,18 @@ begin
                             state  <= DATA;
                             
                         else
-                        	state  <= IDLE;
+                        	state <= IDLE;
                         end if;
                     
                     else
-                    	clkcnt <= clkcnt + 1;
+                        clkcnt <= clkcnt + 1;
                         state  <= START;
                     
                     end if;
                 
                 when DATA =>
                 
-                	if(clkcnt < (CLKS_PER_BIT-1)) then
+                    if clkcnt < (CLKS_PER_BIT-1) then
                     	
                         clkcnt <= clkcnt + 1;
                         state  <= DATA;
@@ -80,8 +80,8 @@ begin
                     	clkcnt <= 0;
                         bytes(bitcnt) <= rx;
                         
-                        if (bitcnt < 7) then
-                        	bitcnt <= bitcnt + 1;
+                        if bitcnt < 7 then
+                            bitcnt <= bitcnt + 1;
                             state  <= DATA;
                         else
                         	bitcnt <= 0;
@@ -92,14 +92,14 @@ begin
                     
                 when STOP =>
                 	
-                    if(clkcnt < (CLKS_PER_BIT-1)) then
+                    if clkcnt < (CLKS_PER_BIT-1) then
                     	
                         clkcnt <= clkcnt + 1;
                         state  <= STOP;
                         
                     else
                     	rx_dv_r <= '1';
-                        clkcnt  <= 0;
+                        clkcnt  <=  0;
                         state 	<= CLEANUP;
                     
                     end if;

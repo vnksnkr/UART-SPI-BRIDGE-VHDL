@@ -10,7 +10,7 @@ entity spimaster is
         length : in std_logic_vector (4 downto 0);
         addr   : in std_logic_vector (1 downto 0);
         
-        t_data 	     : in std_logic_vector (7 downto 0);  ---data to be send to slave ---
+	t_data       : in std_logic_vector (7 downto 0);  ---data to be send to slave ---
         send_to_spi  : in std_logic;
         miso	     : in std_logic; 
         

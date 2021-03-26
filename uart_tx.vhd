@@ -7,13 +7,13 @@ entity uart_tx is
     generic(
         CLKS_PER_BIT: integer := 434
     	   );
-	port(
-    	clk		: in std_logic;
+    port(
+    	clk     : in std_logic;
         start	: in std_logic;
         
-        din		: in std_logic_vector (7 downto 0);
-        
-        tx		: out std_logic;
+        din	: in std_logic_vector (7 downto 0);
+ 
+        tx	: out std_logic;
         tx_done	: out std_logic;
         tx_busy	: out std_logic
         );
@@ -21,10 +21,10 @@ end entity uart_tx;
 
 architecture RTL of uart_tx is
 
-	type SM is (
-	IDLE,
-	START_s, DATA,
-	STOP, CLEANUP );
+    type SM is (
+     IDLE,
+     START_s, DATA,
+     STOP, CLEANUP );
 
     
     signal bytes	 : std_logic_vector (7 downto 0);
@@ -36,17 +36,16 @@ architecture RTL of uart_tx is
     signal tx_busy_r	 : std_logic := '0';
     signal tx_done_r 	 : std_logic := '0';
     
-    begin
-	    process(clk)
+begin
+    process(clk)
     
         begin
-       
+            
             if rising_edge(clk) then
            
-               
                 case state is
                 
-                    when IDLE =>
+		    when IDLE =>
                 	 
                         tx <= '1';
                         bitcnt <= 0;
@@ -84,7 +83,7 @@ architecture RTL of uart_tx is
                                 bitcnt <= bitcnt + 1;
                                 state  <= DATA;
                             else
-                        	    bitcnt <= 0;
+                        	bitcnt <= 0;
                                 state  <= STOP;
                             end if;
                         end if;
@@ -112,9 +111,9 @@ architecture RTL of uart_tx is
                 end case;         
             end if;             
                  
-        end process;
+    end process;
     
-        tx_busy <= tx_busy_r;
-        tx_done <= tx_done_r;
+    tx_busy <= tx_busy_r;
+    tx_done <= tx_done_r;
 
 end RTL;

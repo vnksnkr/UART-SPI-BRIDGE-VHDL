@@ -24,18 +24,26 @@ architecture RTL of SPI_slave16 is
         process(SCK)
             begin
                 if rising_edge(SCK) then
+			
                     if SSEL = '0' then
+			    
                         if r_bitcnt < 15 then
                             r_bitcnt <= r_bitcnt + 1;
+			    
                         else
                             r_bitcnt <= 0;
-                        end if;    
+			    
+                        end if; 
+				
                         r_bytes(r_bitcnt) <= MOSI;
                         t_bytes <= '1' & t_bytes(15 downto 1);
-                    end if;	
+			
+                    end if;
+			    
                 end if;
                 
         end process;
+			
         MISO <= t_bytes(0) when SSEL = '0' else 'Z';
             
         

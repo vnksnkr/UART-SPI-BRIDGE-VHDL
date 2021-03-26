@@ -47,11 +47,13 @@ begin
     
     begin
         if rising_edge(clk) then
+		
             case state is
                 when CONFIGURE =>                                           --- configure bridge ----
 		    
                     if start = '0' or reset = '1' then
                         state <= CONFIGURE;
+		    
                     else
                         r_length <= from_uart(4 downto 0);
                         r_addr   <= from_uart(6 downto 5);
@@ -66,28 +68,36 @@ begin
                             r_send_to_spi <= '1';
                                 
                         end if;
+				
                     end if;
                       
                 when WAIT_DATA =>                                       --- wait for data to be sent from uart ----
+			    
                     if start = '0' then
                         state <= WAIT_DATA;
                         r_send_to_spi <= '0';
+				
                     else
                         if mode = '0' then
                             state <= DATA;
+			    
                         else
                             r_to_spi <= (others => 'Z');
                             state    <= RECIEVE_FROM_SPI;
+				
                         end if;
                             
                     end if;
                         
                 when DATA =>                                    ----send data to spi master ----
+			    
                     r_to_spi <= from_uart;
                     r_send_to_spi <= '1';
+				
                     if bitcnt < length_i then
                         bitcnt <= bitcnt + 1;
                         state  <= WAIT_DATA;
+
                     else
                         bitcnt <= 0;
                         state <= STOP;
@@ -95,15 +105,20 @@ begin
                     end if;
                             
                 when RECIEVE_FROM_SPI =>                    ---- recieve data from spi master ----
+			    
                     r_send_to_spi <= '0';
+
                     if spi_recieved = '1' then
                         to_uart <= from_spi;
                         state <= STOP;
+
                     else
                         state <= RECIEVE_FROM_SPI;
+
                     end if;
                         
                 when STOP =>
+			    
                     r_send_to_spi <= '0';
                     state <= CONFIGURE;
                             
@@ -114,9 +129,12 @@ begin
         
     process(clk)
         begin
+		
             if rising_edge(clk) then
+		    
                 if spi_recieved = '1' and mode = '1' then          ----- sending start signal to uart port of bridge -----
                     r_send_to_uart <= '1';
+		    
                 else
                     if startcnt >= 2 then
                         r_send_to_uart <= '0';
@@ -125,8 +143,11 @@ begin
                     else
                         r_send_to_uart <= r_send_to_uart;
                         startcnt <= startcnt + 1;
+		
                     end if;
+			    
                 end if;
+			
             end if;
                 
     end process;

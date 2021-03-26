@@ -83,8 +83,8 @@ architecture rtl of top is
     
    begin
    
-   UART_INST_1 : entity work.uart                        --uart
-   	port map(
+   UART_INST_1 : entity work.uart                       
+   	port map(					 --uart	
     clk => clk,
     start => start,
     din => din,
@@ -96,8 +96,8 @@ architecture rtl of top is
 	rx_dv => rx_dv1,
 	rx_bytes => r_bytes);
     
-    UART_INST_2 : entity work.uart                        --uart port of bridge
-    port map(
+    UART_INST_2 : entity work.uart                        
+    port map(						--uart port of bridge
     clk => clk,
     start => send_to_uart,
     din => to_uart,
@@ -110,8 +110,8 @@ architecture rtl of top is
 	rx_bytes => ctrl_uart_bytes    
     );
     
-    CTRL_INST : entity work.controller                  --controller (BRIDGE)
-    port map(
+    CTRL_INST : entity work.controller                  
+    port map(						--controller (BRIDGE)
     clk => clk,
   	reset => reset,
   	start => rx_dv2,

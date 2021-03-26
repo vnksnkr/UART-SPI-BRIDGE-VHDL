@@ -116,6 +116,6 @@ begin
     end process;
     
     rx_bytes <= bytes;
-    rx_dv 	 <= rx_dv_r;
+    rx_dv    <= rx_dv_r;
 
 end RTL;

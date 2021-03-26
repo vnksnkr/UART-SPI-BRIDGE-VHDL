@@ -60,7 +60,7 @@ begin
                             state  <= DATA;
                             
                         else
-                        	state <= IDLE;
+                            state <= IDLE;
                         end if;
                     
                     else
@@ -84,7 +84,7 @@ begin
                             bitcnt <= bitcnt + 1;
                             state  <= DATA;
                         else
-                        	bitcnt <= 0;
+                            bitcnt <= 0;
                             state  <= STOP;
                         end if;
                     

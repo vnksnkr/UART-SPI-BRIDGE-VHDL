@@ -14,9 +14,9 @@
   
   Write Mode :
     
-    if 8 bit send the data byte  (CLKS_PER_BIT*12) time after command byte is sent
+    if 8 bit send the data byte  "(CLKS_PER_BIT*12)" time after command byte is sent
     
-    if 16 bit send the data byte  (CLKS_PER_BIT*12) time after command byte is sent and next byte (CLKS_PER_BIT*12) time after 1st byte
+    if 16 bit send the data byte  "(CLKS_PER_BIT*12)" time after command byte is sent and next byte (CLKS_PER_BIT*12) time after 1st byte
  
  Read Mode   :
     

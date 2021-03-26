@@ -57,6 +57,7 @@ begin
         	
             if reset = '1' then
             	state <= IDLE;
+		
             else
             	
                 case state is
@@ -127,6 +128,7 @@ begin
                         elsif send_to_spi = '1' then
                             state <= SEND;
                             load  <= '1';
+
                         else
                             state <= WAIT_FOR_NB;
                         end if;
@@ -135,7 +137,8 @@ begin
 	
             end if;
 		    
-        end if;    
+        end if;  
+		
     end process;
     
     mosi   <= mosi_r(0) and sendclk;
@@ -160,14 +163,22 @@ begin
     process(sclk_r)
     begin
     	if rising_edge(sclk_r) then
+		
             if ss_r = '1' then
+		    
                 if r_bitcnt = 7 then
+			
                     r_bitcnt <= 0;
+		    
                 end if;
                 r_data_r(r_bitcnt) <= miso;
+		    
                 if r_bitcnt < 7 then
+			
                     r_bitcnt <= r_bitcnt + 1;
+		    
             	end if;
+			
             end if;
         
         end if;

@@ -105,7 +105,7 @@ begin
                         state <= IDLE;
                  
                     when others =>
-                 	    state <= IDLE;
+                        state <= IDLE;
                     
                     
                 end case;         

@@ -12,7 +12,8 @@
 
 - DATA BYTE
   
-  Write Mode :
+ 
+ Write Mode  :
     
     if 8 bit send the data byte  CLKS_PER_BIT*12 time after command byte is sent
     

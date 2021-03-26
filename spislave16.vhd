@@ -24,8 +24,8 @@ architecture RTL of SPI_slave16 is
         process(SCK)
             begin
                 if rising_edge(SCK) then
-                    if (SSEL = '0') then
-                        if(r_bitcnt < 15) then
+                    if SSEL = '0' then
+                        if r_bitcnt < 15 then
                             r_bitcnt <= r_bitcnt + 1;
                         else
                             r_bitcnt <= 0;

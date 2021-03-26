@@ -25,35 +25,10 @@ end entity uart;
 
 architecture RTL of uart is
 
-
-    	component uart_rx
-		port(
-    		clk : in std_logic;
-        	rx  : in std_logic;
-        
-        	rx_bytes : out std_logic_vector (7 downto 0);
-        	rx_dv	 : out std_logic
-        	);
-    end component;
-    
    
-    component uart_tx
-    	port(
-    		clk		: in std_logic;
-        	start	: in std_logic;
-        
-       		din		: in std_logic_vector (7 downto 0);
-        
-        	tx		: out std_logic;
-        	tx_done	: out std_logic;
-        	tx_busy	: out std_logic
-        	);
-    end component;
-    
-    
     begin
     
-    uart_rx_inst : uart_rx 
+    uart_rx_inst : entity work.uart_rx 
     	port map(
         	clk => clk,
             rx  => rx,
@@ -61,7 +36,7 @@ architecture RTL of uart is
             rx_bytes => rx_bytes,
             rx_dv => rx_dv);
             
-    uart_tx_inst : uart_tx
+    uart_tx_inst : entity work.uart_tx
     	port map(
         	clk => clk,
             start => start,
@@ -72,4 +47,4 @@ architecture RTL of uart is
             tx_done => tx_done,
             tx_busy => tx_busy);
     
-end RTL; 
+end RTL;  

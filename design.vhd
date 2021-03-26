@@ -60,99 +60,9 @@ architecture rtl of top is
     signal ctrl_uart_bytes : std_logic_vector (7 downto 0);
     
     
-    component uart
-	generic(
-    	   CLKS_PER_BIT: integer := 434
-    	   );
-    port
-    	(
-        clk   : in std_logic;
-        start : in std_logic;
-        din   : in std_logic_vector (7 downto 0);
-        rx	  : in std_logic;
-        tx	  : out std_logic;
-        
-        tx_dv     : in std_logic;
-        tx_busy	  : out std_logic;
-        tx_done	  : out std_logic;
-        rx_dv	  : out std_logic;
-        
-        rx_bytes  : out std_logic_vector (7 downto 0)
-        );
-   end component;
-   
-   
-   component controller
-	port(
-    	clk   	  	 : in std_logic;
-        reset 	  	 : in std_logic;
-        start 	  	 : in std_logic;
-        from_uart 	 : in std_logic_vector (7 downto 0);
-        from_spi  	 : in std_logic_vector (7 downto 0);
-        spi_recieved : in std_logic;
-        
-        length	  : out std_logic_vector (4 downto 0);
-        addr	  : out std_logic_vector (1 downto 0);
-        to_spi	  : out std_logic_vector (7 downto 0);
-        to_uart   : out std_logic_vector (7 downto 0);
-        
-        send_to_spi  : out std_logic;
-        send_to_uart : out std_logic
-        );
-   end component;
-   
-   
-   component spimaster
-	port(
-    	
-        clk    : in std_logic;
-        reset  : in std_logic;
-        
-        length : in std_logic_vector (4 downto 0);
-        addr   : in std_logic_vector (1 downto 0);
-        
-        t_data 		 : in std_logic_vector (7 downto 0);
-        send_to_spi  : in std_logic;
-        miso		 : in std_logic;
-        
-        r_data : out std_logic_vector (7 downto 0);
-        sclk   : out std_logic;
-        
-        ss0	   : out std_logic;
-        ss1	   : out std_logic;
-        ss2	   : out std_logic;
-        ss3	   : out std_logic;
-        
-        
-        mosi   : out std_logic;
-        spi_recieved : out std_logic
-        );
-   end component;
-   
-   
-   component SPI_slave8
-	port(
-    	SCK  	: in std_logic;
-        MOSI 	: in std_logic;
-        SSEL 	: in std_logic;
-        MISO 	: out std_logic;
-        r_bytes : out std_logic_vector(7 downto 0)
-        );
-   end component;
-   
-   component SPI_slave16
-   port(
-    	SCK  	: in std_logic;
-        MOSI 	: in std_logic;
-        SSEL 	: in std_logic;
-        MISO 	: out std_logic;
-        r_bytes : out std_logic_vector(15 downto 0)
-        );          
-   end component;
-   
    begin
    
-   U1 : uart 
+   UART_INST_1 : entity work.uart  --------uart ----------
    	port map(
     clk => clk,
     start => start,
@@ -165,7 +75,7 @@ architecture rtl of top is
 	rx_dv => rx_dv1,
 	rx_bytes => r_bytes);
     
-    U2 :uart
+    UART_INST_2 : entity work.uart ----------uart port of bridge------
     port map(
     clk => clk,
     start => send_to_uart,
@@ -179,7 +89,7 @@ architecture rtl of top is
 	rx_bytes => ctrl_uart_bytes    
     );
     
-    U3 : controller
+    CTRL_INST : entity work.controller -------controller (BRIDGE)--------------------
     port map(
     clk => clk,
   	reset => reset,
@@ -196,7 +106,7 @@ architecture rtl of top is
     );
     
     
-    U4 : spimaster
+    SPIM_INST : entity work.spimaster
     port map(
     clk => clk,
     reset => reset,
@@ -216,7 +126,7 @@ architecture rtl of top is
     );
     
     
-    U5 : SPI_slave8
+    SLAVE0_INST : entity work.SPI_slave8
     port map(
     SCK  => sclk,
   	MOSI => mosi,
@@ -225,7 +135,7 @@ architecture rtl of top is
     r_bytes => spi0_slave_data
 	);
 
-    U6 : SPI_slave8
+    SLAVE1_INST : entity work.SPI_slave8
     port map(
     SCK => sclk,
   	MOSI => mosi,
@@ -234,7 +144,7 @@ architecture rtl of top is
     r_bytes => spi1_slave_data
 	);
 
-    U7 : SPI_slave16
+    SLAVE2_INST : entity work.SPI_slave16
     port map(
     SCK  =>  sclk,
   	MOSI => mosi,
@@ -243,7 +153,7 @@ architecture rtl of top is
     r_bytes => spi2_slave_data
 	);
 
-    U8 : SPI_slave16
+    SLAVE3_INST : entity work.SPI_slave16
     port map(
     SCK  => sclk,
   	MOSI => mosi,

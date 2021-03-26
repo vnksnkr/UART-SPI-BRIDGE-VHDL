@@ -91,13 +91,13 @@ begin
                                     state <= SEND;
                                     bitcnt <= bitcnt + 1;
                                     cnt <= cnt + 1;
-                            
+                                 
                                 else
                             	    mosi_r <= '0' & mosi_r(7 downto 1);
-				    ss_r <= '1';
-				    bitcnt <= bitcnt + 1;
-			 	    cnt <= cnt + 1;
-				    state <= SEND;
+                                    ss_r <= '1';
+                                    bitcnt <= bitcnt + 1;
+                                    cnt <= cnt + 1;
+                                    state <= SEND;
                                 end if;
                             
                             else

@@ -11,11 +11,11 @@ entity spimaster is
         length : in std_logic_vector (4 downto 0);
         addr   : in std_logic_vector (1 downto 0);
         
-        t_data 		 : in std_logic_vector (7 downto 0);
+        t_data 		 : in std_logic_vector (7 downto 0);  ---data to be send to slave ---
         send_to_spi  : in std_logic;
-        miso		 : in std_logic;
+        miso		 : in std_logic; 
         
-        r_data : out std_logic_vector (7 downto 0);
+        r_data : out std_logic_vector (7 downto 0);         ---data recieved from slave -----
         sclk   : out std_logic;
         
         ss0	   : out std_logic;
@@ -38,7 +38,7 @@ architecture RTL of spimaster is
         
     signal ss_r    : std_logic := '1';
     signal sendclk : std_logic := '0';
-    signal load    : std_logic := '0';
+    signal load    : std_logic := '0'; ---load data from bridge to spi master -----
     
     signal bitcnt   : integer range 0 to 8  := 0;
     signal r_bitcnt : integer range 0 to 7  := 0;
@@ -104,7 +104,7 @@ begin
                         	spi_recieved <= '1';
 							ss_r <= '0';
 							bitcnt <= 0;
-							state <= WAIT_FOR_NB;
+							state <= WAIT_FOR_NB;                ---- length more than 8 bits wait for next bit -----
                         
                         end if;    
      			 	
@@ -152,7 +152,7 @@ begin
     	if sendclk = '1' then
         	sclk_r <= clk;
         else
-            sclk_r <= '0'; 	
+            sclk_r <= '0'; 	            ----- sending sck for slave -----------
         end if;
         
     end process;

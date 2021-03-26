@@ -1,4 +1,3 @@
--- Code your design here
 library ieee;
 use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
@@ -21,7 +20,10 @@ end entity uart_tx;
 
 architecture RTL of uart_tx is
 
-	type SM is (IDLE,START_s,DATA,STOP,CLEANUP);
+	type SM is (
+	IDLE,START_s,
+	DATA,STOP,
+	CLEANUP);
 
     
     signal bytes	 : std_logic_vector (7 downto 0);

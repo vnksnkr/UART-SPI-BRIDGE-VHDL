@@ -1,4 +1,3 @@
--- Code your testbench here
 library ieee;
 use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
@@ -44,7 +43,7 @@ architecture tb of testbench is
 
 	begin
     	
-        top_inst : top 
+        top_inst : entity work.top 
         generic map(
         CLKS_PER_BIT => c_CLKS_PER_BIT
         )
@@ -74,18 +73,7 @@ architecture tb of testbench is
             start <= '1';
             wait for 20 ns;
             start <= '0';
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
+            wait for c_BIT_PERIOD * 12;
             wait for 20 ns;
         	
         	
@@ -93,49 +81,17 @@ architecture tb of testbench is
             start <= '1';
             wait for 20 ns;
             start <= '0';
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;            
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            
+            wait for c_BIT_PERIOD *12;
+            wait for 20 ns;
+
         	
         	din <= "10101000";
             start <= '1';
             wait for 20 ns;
             start <= '0';            
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-            wait for c_BIT_PERIOD;
-                   	
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            wait for c_BIT_PERIOD * 12;
+
+                               
  ---------------16 bit--------------------------------
 
 
@@ -175,26 +131,6 @@ architecture tb of testbench is
             start <= '0';
             wait for c_BIT_PERIOD * 15;
             wait for 20 ns; 
-         	        	
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+         	        	           
         end process;
-end tb;        
-           
+end tb; 

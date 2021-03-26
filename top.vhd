@@ -41,14 +41,14 @@ entity top is
             
 end entity top;
 
-architecture rtl of top is
+architecture RTL of top is
 	
     signal tx1         : std_logic;
     signal tx_dv1      : std_logic;
     signal tx_busy1    : std_logic;
     signal tx_done1    : std_logic;
     signal rx_dv1      : std_logic;
-	signal send_to_spi : std_logic;
+    signal send_to_spi : std_logic;
     
     signal miso : std_logic;
     signal mosi : std_logic;
@@ -82,8 +82,8 @@ architecture rtl of top is
     
     begin
    
-        UART_INST_1 : entity work.uart  --------uart ----------
-   	    port map(
+        UART_INST_1 : entity work.uart
+        port map(					 --------uart ----------
             clk      => clk,
             start    => start,
             din      => din,
@@ -96,8 +96,8 @@ architecture rtl of top is
 	    rx_bytes => r_bytes);
     
         
-        UART_INST_2 : entity work.uart ----------uart port of bridge------
-        port map(
+        UART_INST_2 : entity work.uart 
+        port map(					----------uart port of bridge------
             clk      => clk,
             start    => send_to_uart,
             din      => to_uart,
@@ -110,8 +110,8 @@ architecture rtl of top is
 	    rx_bytes => ctrl_uart_bytes );
     
         
-        CTRL_INST : entity work.controller -------controller (BRIDGE)--------------------
-        port map(
+        CTRL_INST : entity work.controller 
+        port map(				-------controller (BRIDGE)--------------------
             clk   => clk,
   	    reset => reset,
   	    start => rx_dv2,

@@ -36,7 +36,10 @@ architecture RTL of controller is
     signal  bitcnt  : integer := 0;
     signal length_i : integer ;    
 
-    type SM is (CONFIGURE,WAIT_DATA,DATA,RECIEVE_FROM_SPI,STOP);
+    type SM is (
+    CONFIGURE,WAIT_DATA,DATA,
+    RECIEVE_FROM_SPI,STOP);
+    
     signal	 state :  SM := CONFIGURE;
     
       
@@ -138,4 +141,4 @@ architecture RTL of controller is
         length <= r_length;
         send_to_spi <= r_send_to_spi;
 
-end RTL; 
+end RTL;

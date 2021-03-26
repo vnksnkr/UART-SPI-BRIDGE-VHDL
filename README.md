@@ -45,7 +45,7 @@ Eg:
     
     command byte will be :- 11001000
     
-    and then the data byte   
+      
     
  
  
@@ -53,7 +53,6 @@ Eg:
     
     command byte will be :- 11110000
     
-    and then the data byte
-    
+   
     
    

@@ -48,6 +48,7 @@ begin
                         
                     else
                         state <= IDLE;
+	
                     end if;
                     
                 when START =>
@@ -61,6 +62,7 @@ begin
                             
                         else
                             state <= IDLE;
+			    
                         end if;
                     
                     else
@@ -86,6 +88,7 @@ begin
                         else
                             bitcnt <= 0;
                             state  <= STOP;
+
                         end if;
                     
                     end if;
@@ -111,6 +114,7 @@ begin
                     
             
             end case;
+		    
         end if;
         
     end process;

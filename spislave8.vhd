@@ -40,3 +40,4 @@ architecture RTL of SPI_slave8 is
             
         
 end RTL;
+				

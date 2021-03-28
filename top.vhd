@@ -93,7 +93,8 @@ begin
             tx_busy  => tx_busy1,
             tx_done  => tx_done1,
             rx_dv    => rx_dv1,
-            rx_bytes => r_bytes);
+            rx_bytes => r_bytes
+	);
     
         
     UART_INST_2 : entity work.uart 
@@ -107,7 +108,8 @@ begin
             tx_busy  => tx_busy2,
             tx_done  => tx_done2,
             rx_dv    => rx_dv2,
-            rx_bytes => ctrl_uart_bytes );
+            rx_bytes => ctrl_uart_bytes
+	);
     
         
     CTRL_INST : entity work.controller 
@@ -126,10 +128,10 @@ begin
             to_uart => to_uart,
             
             send_to_spi  => send_to_spi,  
-            send_to_uart => send_to_uart );
+            send_to_uart => send_to_uart
+	);
     
-    
-        
+           
     SPIM_INST : entity work.spimaster
         port map (
             clk    => clk,
@@ -149,18 +151,18 @@ begin
             ss3  => ss3,
             mosi => mosi,
             
-            spi_recieved => spi_recieved );
+            spi_recieved => spi_recieved
+	);
     
-    
-        
+            
     SLAVE0_INST : entity work.SPI_slave8
         port map (
             SCK     => sclk,
             MOSI    => mosi,
             SSEL    => ss0,
             MISO    => miso,
-            r_bytes => spi0_slave_data );
-
+            r_bytes => spi0_slave_data
+	);
         
     SLAVE1_INST : entity work.SPI_slave8
         port map (
@@ -168,7 +170,8 @@ begin
             MOSI    => mosi,
             SSEL    => ss1,
             MISO    => miso,
-            r_bytes => spi1_slave_data );
+            r_bytes => spi1_slave_data
+	);
 
         
     SLAVE2_INST : entity work.SPI_slave16
@@ -177,7 +180,8 @@ begin
             MOSI    => mosi,
             SSEL    => ss2,
             MISO    => miso,
-            r_bytes => spi2_slave_data );
+            r_bytes => spi2_slave_data
+	);
 
         
     SLAVE3_INST : entity work.SPI_slave16
@@ -186,6 +190,7 @@ begin
             MOSI    => mosi,
             SSEL    => ss3,
             MISO    => miso,
-            r_bytes => spi3_slave_data );		  
+            r_bytes => spi3_slave_data
+	);		  
     
 end RTL;

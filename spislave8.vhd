@@ -3,13 +3,13 @@ use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
 
 entity SPI_slave8 is
-    port(
+    port (
         SCK     : in std_logic;
         MOSI    : in std_logic;
         SSEL    : in std_logic;
         MISO    : out std_logic;
         r_bytes : out std_logic_vector(7 downto 0)
-        );
+    );
 end entity SPI_slave8;        
 
 architecture RTL of SPI_slave8 is
@@ -19,24 +19,24 @@ architecture RTL of SPI_slave8 is
     
     signal MISO_r : std_logic := '0';
     
-    begin
+begin
     	
-        process(SCK)
-            begin
-                if rising_edge(SCK) then
-                    if SSEL = '0' then
-                        if r_bitcnt < 7 then
-                            r_bitcnt <= r_bitcnt + 1;
-                        else 
-                            r_bitcnt <= 0;
-                        end if;    
-                        r_bytes(r_bitcnt) <= MOSI;
-                        t_bytes <= '1' & t_bytes(7 downto 1);
-                    end if;	
-                end if;
+    process (SCK)
+    begin
+        if rising_edge(SCK) then
+            if SSEL = '0' then
+                if r_bitcnt < 7 then
+                    r_bitcnt <= r_bitcnt + 1;
+                else 
+                    r_bitcnt <= 0;
+                end if;    
+                r_bytes(r_bitcnt) <= MOSI;
+                t_bytes <= '1' & t_bytes(7 downto 1);
+            end if;	
+        end if;
                 
-        end process;
-        MISO <= t_bytes(0) when SSEL = '0' else 'Z';
+    end process;
+    MISO <= t_bytes(0) when SSEL = '0' else 'Z';
             
         
 end RTL;

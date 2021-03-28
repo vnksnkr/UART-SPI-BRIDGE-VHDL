@@ -29,7 +29,8 @@ begin
                     r_bitcnt <= r_bitcnt + 1;
                 else 
                     r_bitcnt <= 0;
-                end if;    
+                end if;
+			
                 r_bytes(r_bitcnt) <= MOSI;
                 t_bytes <= '1' & t_bytes(7 downto 1);
             end if;	

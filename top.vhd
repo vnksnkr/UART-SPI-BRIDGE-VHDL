@@ -23,10 +23,10 @@ use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
 
 entity top is
-    generic(
+    generic (
         CLKS_PER_BIT : integer := 434
-           );
-    port( 
+    );
+    port ( 
         clk     : in std_logic;
         din     : in std_logic_vector (7 downto 0);
         start   : in std_logic;
@@ -37,7 +37,7 @@ entity top is
         spi1_slave_data : out std_logic_vector (7 downto 0);
         spi2_slave_data : out std_logic_vector (15 downto 0);
         spi3_slave_data : out std_logic_vector (15 downto 0)
-        );
+    );
             
 end entity top;
 
@@ -80,10 +80,10 @@ architecture RTL of top is
     
     signal ctrl_uart_bytes : std_logic_vector (7 downto 0);
     
-    begin
+begin
    
-        UART_INST_1 : entity work.uart
-        port map(					 --------uart ----------
+    UART_INST_1 : entity work.uart
+        port map (					 --------uart ----------
             clk      => clk,
             start    => start,
             din      => din,
@@ -96,8 +96,8 @@ architecture RTL of top is
             rx_bytes => r_bytes);
     
         
-        UART_INST_2 : entity work.uart 
-        port map(					----------uart port of bridge------
+    UART_INST_2 : entity work.uart 
+        port map (					----------uart port of bridge------
             clk      => clk,
             start    => send_to_uart,
             din      => to_uart,
@@ -110,8 +110,8 @@ architecture RTL of top is
             rx_bytes => ctrl_uart_bytes );
     
         
-        CTRL_INST : entity work.controller 
-        port map(				-------controller (BRIDGE)--------------------
+    CTRL_INST : entity work.controller 
+        port map (				-------controller (BRIDGE)--------------------
             clk   => clk,
             reset => reset,
             start => rx_dv2,
@@ -130,8 +130,8 @@ architecture RTL of top is
     
     
         
-        SPIM_INST : entity work.spimaster
-        port map(
+    SPIM_INST : entity work.spimaster
+        port map (
             clk    => clk,
             reset  => reset,
             length => length,
@@ -153,8 +153,8 @@ architecture RTL of top is
     
     
         
-        SLAVE0_INST : entity work.SPI_slave8
-        port map(
+    SLAVE0_INST : entity work.SPI_slave8
+        port map (
             SCK     => sclk,
             MOSI    => mosi,
             SSEL    => ss0,
@@ -162,8 +162,8 @@ architecture RTL of top is
             r_bytes => spi0_slave_data );
 
         
-        SLAVE1_INST : entity work.SPI_slave8
-        port map(
+    SLAVE1_INST : entity work.SPI_slave8
+        port map (
             SCK     => sclk,
             MOSI    => mosi,
             SSEL    => ss1,
@@ -171,8 +171,8 @@ architecture RTL of top is
             r_bytes => spi1_slave_data );
 
         
-        SLAVE2_INST : entity work.SPI_slave16
-        port map(
+    SLAVE2_INST : entity work.SPI_slave16
+        port map (
             SCK     =>  sclk,
             MOSI    => mosi,
             SSEL    => ss2,
@@ -180,8 +180,8 @@ architecture RTL of top is
             r_bytes => spi2_slave_data );
 
         
-        SLAVE3_INST : entity work.SPI_slave16
-        port map(
+    SLAVE3_INST : entity work.SPI_slave16
+        port map (
             SCK     => sclk,
             MOSI    => mosi,
             SSEL    => ss3,

@@ -25,39 +25,39 @@ architecture tb of testbench is
     signal din : std_logic_vector (7 downto 0);
     
     component top
-        generic (
-            CLKS_PER_BIT : integer := 434
-	);
-        port (
-            clk	           : in std_logic;
-            din            : in std_logic_vector (7 downto 0);
-            start          : in std_logic;
-            reset          : in std_logic;
-            r_bytes        : out std_logic_vector (7 downto 0);
-            spi0_slave_data : out std_logic_vector (7 downto 0);
-            spi1_slave_data : out std_logic_vector (7 downto 0);
-            spi2_slave_data : out std_logic_vector (15 downto 0);
-            spi3_slave_data : out std_logic_vector (15 downto 0)
-        );
+            generic (
+                CLKS_PER_BIT : integer := 434
+	    );
+            port (
+                clk	       : in std_logic;
+                din            : in std_logic_vector (7 downto 0);
+                start          : in std_logic;
+                reset          : in std_logic;
+                r_bytes        : out std_logic_vector (7 downto 0);
+                spi0_slave_data : out std_logic_vector (7 downto 0);
+                spi1_slave_data : out std_logic_vector (7 downto 0);
+                spi2_slave_data : out std_logic_vector (15 downto 0);
+                spi3_slave_data : out std_logic_vector (15 downto 0)
+            );
     end component;       
 
 begin
     	
     top_inst : entity work.top 
-    generic map (
-	CLKS_PER_BIT => c_CLKS_PER_BIT
-    )
-    port map (
-        clk => clk,
-        din => din,
-        start => start,
-        reset => reset,
-        r_bytes => r_bytes,
-        spi0_slave_data => spi0_slave_data,
-        spi1_slave_data => spi1_slave_data,
-        spi2_slave_data => spi2_slave_data,
-        spi3_slave_data => spi3_slave_data
-    );
+        generic map (
+	    CLKS_PER_BIT => c_CLKS_PER_BIT
+        )
+        port map (
+            clk => clk,
+            din => din,
+            start => start,
+            reset => reset,
+            r_bytes => r_bytes,
+            spi0_slave_data => spi0_slave_data,
+            spi1_slave_data => spi1_slave_data,
+            spi2_slave_data => spi2_slave_data,
+            spi3_slave_data => spi3_slave_data
+        );
         
         
     clk <= not clk after CLK_PERIOD/2;

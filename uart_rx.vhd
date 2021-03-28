@@ -39,8 +39,7 @@ begin
                     clkcnt  <=  0;
                     rx_dv_r <= '0'; 
                     if rx = '0' then
-                        state <= START;
-                        
+                        state <= START;            
                     else
                         state <= IDLE;
                     end if;
@@ -49,8 +48,7 @@ begin
                     if clkcnt < (CLKS_PER_BIT-1)/2  then                   	
                         if rx = '0' then                       	
                             clkcnt <= 0;
-                            state  <= DATA;
-                            
+                            state  <= DATA;                        
                         else
                             state <= IDLE;			    
                         end if;

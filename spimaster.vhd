@@ -57,7 +57,6 @@ begin
 		
             else
                 case state is
-                
                     when IDLE => 	
                         if send_to_spi = '1' then
                     	    load <= '1';

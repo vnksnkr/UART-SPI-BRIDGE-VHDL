@@ -57,7 +57,7 @@ Eg:
     
     
 - SIMULATION RESULTS
-- ![Screenshot from 2021-03-28 12-47-25](https://user-images.githubusercontent.com/65824687/112745162-ff53aa80-8fc3-11eb-85e3-a739471a89dc.png)
+ ![Screenshot from 2021-03-28 12-47-25](https://user-images.githubusercontent.com/65824687/112745162-ff53aa80-8fc3-11eb-85e3-a739471a89dc.png)
     
     
    

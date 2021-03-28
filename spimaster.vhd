@@ -51,13 +51,11 @@ begin
 
     process (clk)
     begin
-    
         if falling_edge(clk) then	
             if reset = '1' then
             	state <= IDLE;
 		
             else
-     	
                 case state is
                 
                     when IDLE => 	

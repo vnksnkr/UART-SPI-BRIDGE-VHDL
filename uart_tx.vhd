@@ -55,8 +55,7 @@ begin
                     end if;
                  
                 when START_s =>
-                    tx <= '0';
-                     
+                    tx <= '0';                   
                     if clkcnt < CLKS_PER_BIT-1 then
                         clkcnt <= clkcnt + 1;
                         state  <= START_s;

@@ -27,8 +27,8 @@ architecture tb of testbench is
     component top
         generic (
             CLKS_PER_BIT : integer := 434
-	        );
-        port(
+	);
+        port (
             clk	           : in std_logic;
             din            : in std_logic_vector (7 downto 0);
             start          : in std_logic;
@@ -38,99 +38,98 @@ architecture tb of testbench is
             spi1_slave_data : out std_logic_vector (7 downto 0);
             spi2_slave_data : out std_logic_vector (15 downto 0);
             spi3_slave_data : out std_logic_vector (15 downto 0)
-            );
+        );
     end component;       
 
-    begin
+begin
     	
-        top_inst : entity work.top 
-        generic map(
-	    CLKS_PER_BIT => c_CLKS_PER_BIT
-        )
-        port map(
-            clk => clk,
-            din => din,
-            start => start,
-            reset => reset,
-            r_bytes => r_bytes,
-            spi0_slave_data => spi0_slave_data,
-            spi1_slave_data => spi1_slave_data,
-            spi2_slave_data => spi2_slave_data,
-            spi3_slave_data => spi3_slave_data
-        );
+    top_inst : entity work.top 
+    generic map (
+	CLKS_PER_BIT => c_CLKS_PER_BIT
+    )
+    port map (
+        clk => clk,
+        din => din,
+        start => start,
+        reset => reset,
+        r_bytes => r_bytes,
+        spi0_slave_data => spi0_slave_data,
+        spi1_slave_data => spi1_slave_data,
+        spi2_slave_data => spi2_slave_data,
+        spi3_slave_data => spi3_slave_data
+    );
         
         
-        clk <= not clk after CLK_PERIOD/2;
+    clk <= not clk after CLK_PERIOD/2;
         
-        process
-        begin
+    process
+    begin
         	
-            reset <= '1';
-            wait for 20 ns;
-            reset <= '0';
-            wait for 20 ns;
-            din <= "00001000";
-            start <= '1';
-            wait for 20 ns;
-            start <= '0';
-            wait for c_BIT_PERIOD * 12;
-            wait for 20 ns;
+        reset <= '1';
+        wait for 20 ns;
+        reset <= '0';
+        wait for 20 ns;
+        din <= "00001000";
+        start <= '1';
+        wait for 20 ns;
+        start <= '0';
+        wait for c_BIT_PERIOD * 12;
+        wait for 20 ns;
         	
         	
-            din <= "10011000";
-            start <= '1';
-            wait for 20 ns;
-            start <= '0';
-            wait for c_BIT_PERIOD *12;
-            wait for 20 ns;
+        din <= "10011000";
+        start <= '1';
+        wait for 20 ns;
+        start <= '0';
+        wait for c_BIT_PERIOD *12;
+        wait for 20 ns;
 
         	
-            din <= "10101000";
-            start <= '1';
-            wait for 20 ns;
-            start <= '0';            
-            wait for c_BIT_PERIOD * 12;
+        din <= "10101000";
+        start <= '1';
+        wait for 20 ns;
+        start <= '0';            
+        wait for c_BIT_PERIOD * 12;
 
                                
  ---------------16 bit--------------------------------
 
 
          	
-            din <= "01110000";
-            start <= '1';
-            wait for 20 ns;
-            start <= '0';
-            wait for c_BIT_PERIOD * 12;
-            wait for 20 ns;
-        	
-            din <= "10011000";
-            start <= '1';
-            wait for 20 ns;
-            start <= '0';
-            wait for c_BIT_PERIOD * 12;
-
-            
-            din <= "11110000";
-            start <= '1';
-            wait for 20 ns;
-            start <= '0';            
-            wait for c_BIT_PERIOD * 12;
-            
-            
-            
-            din <= "11010000";
-            start <= '1';
-            wait for 20 ns;
-            start <= '0';
-            wait for c_BIT_PERIOD * 12;
-            wait for 20 ns; 
-       
-            din <= "11010000";
-            start <= '1';
-            wait for 20 ns;
-            start <= '0';
-            wait for c_BIT_PERIOD * 15;
-            wait for 20 ns; 
+        din <= "01110000";
+        start <= '1';
+        wait for 20 ns;
+        start <= '0';
+        wait for c_BIT_PERIOD * 12;
+        wait for 20 ns;
+     
+        din <= "10011000";
+        start <= '1';
+        wait for 20 ns;
+        start <= '0';
+        wait for c_BIT_PERIOD * 
+        
+        din <= "11110000";
+        start <= '1';
+        wait for 20 ns;
+        start <= '0';            
+        wait for c_BIT_PERIOD * 12;
+        
+        
+        
+        din <= "11010000";
+        start <= '1';
+        wait for 20 ns;
+        start <= '0';
+        wait for c_BIT_PERIOD * 12;
+        wait for 20 ns; 
+   
+        din <= "11010000";
+        start <= '1';
+        wait for 20 ns;
+        start <= '0';
+        wait for c_BIT_PERIOD * 15;
+        wait for 20 ns; 
          	        	           
-        end process;
+    end process;
 end tb; 

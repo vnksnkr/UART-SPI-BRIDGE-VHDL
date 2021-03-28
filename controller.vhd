@@ -67,8 +67,7 @@ begin
                         end if;				
                     end if;
                       
-                when WAIT_DATA =>                                       --- wait for data to be sent from uart ----
-			    
+                when WAIT_DATA =>                                       --- wait for data to be sent from uart ----	    
                     if start = '0' then
                         state <= WAIT_DATA;
                         r_send_to_spi <= '0';
@@ -83,11 +82,9 @@ begin
                         end if;
                     end if;
                         
-                when DATA =>                                    ----send data to spi master ----
-			    
+                when DATA =>                                    ----send data to spi master ----	    
                     r_to_spi <= from_uart;
-                    r_send_to_spi <= '1';
-				
+                    r_send_to_spi <= '1';		
                     if bitcnt < length_i then
                         bitcnt <= bitcnt + 1;
                         state  <= WAIT_DATA;
@@ -97,8 +94,7 @@ begin
                         state <= STOP;  
                     end if;
                             
-                when RECIEVE_FROM_SPI =>                    ---- recieve data from spi master ----
-			    
+                when RECIEVE_FROM_SPI =>                    ---- recieve data from spi master ----	    
                     r_send_to_spi <= '0';
                     if spi_recieved = '1' then
                         to_uart <= from_spi;

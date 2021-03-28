@@ -3,7 +3,7 @@ use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
 
 entity controller is 
-    port(
+    port (
         clk          : in std_logic;                     
         reset        : in std_logic;
         start        : in std_logic;
@@ -18,7 +18,7 @@ entity controller is
         
         send_to_spi  : out std_logic;
         send_to_uart : out std_logic
-        );
+    );
 end entity controller;
 
 architecture RTL of controller is
@@ -43,7 +43,7 @@ architecture RTL of controller is
       
 begin
     length_i <= 1 when r_length(4) = '1' else 0 ;
-    process(clk)
+    process (clk)
     
     begin
         if rising_edge(clk) then
@@ -127,8 +127,8 @@ begin
         
     end process;
         
-    process(clk)
-        begin
+    process (clk)
+    begin
 		
             if rising_edge(clk) then
 		    

@@ -3,10 +3,10 @@ use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
 
 entity uart is 
-    generic(
+    generic (
         CLKS_PER_BIT: integer := 434
-    	   );
-    port(
+    );
+    port (
         clk   : in std_logic;
         start : in std_logic;
         din   : in std_logic_vector (7 downto 0);
@@ -18,7 +18,7 @@ entity uart is
         tx_done   : out std_logic;
         rx_dv     : out std_logic;
         rx_bytes  : out std_logic_vector (7 downto 0)
-        );
+    );
 
 end entity uart;
 
@@ -26,21 +26,23 @@ architecture RTL of uart is
 begin
     
     uart_rx_inst : entity work.uart_rx 
-    port map(
-        clk => clk,
-        rx  => rx,
+        port map (
+            clk => clk,
+            rx  => rx,
             
-        rx_bytes => rx_bytes,
-        rx_dv    => rx_dv);
+            rx_bytes => rx_bytes,
+            rx_dv    => rx_dv
+    );
             
     uart_tx_inst : entity work.uart_tx
-    port map(
-        clk   => clk,
-        start => start,
-        din   => din,
+        port map (
+            clk   => clk,
+            start => start,
+            din   => din,
             
-        tx      => tx,
-        tx_done => tx_done,
-        tx_busy => tx_busy);
+            tx      => tx,
+            tx_done => tx_done,
+            tx_busy => tx_busy
+        );
     
 end RTL;  

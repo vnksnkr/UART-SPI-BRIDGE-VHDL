@@ -32,7 +32,7 @@ begin
             
             rx_bytes => rx_bytes,
             rx_dv    => rx_dv
-    );
+        );
             
     uart_tx_inst : entity work.uart_tx
         port map (

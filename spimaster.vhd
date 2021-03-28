@@ -3,7 +3,7 @@ use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
 
 entity spimaster is
-    port(
+    port (
         clk    : in std_logic;
         reset  : in std_logic;
         
@@ -25,7 +25,7 @@ entity spimaster is
         mosi : out std_logic;
         
         spi_recieved : out std_logic
-        );
+    );
 
 end entity spimaster;
 
@@ -49,21 +49,18 @@ architecture RTL of spimaster is
     
 begin
 
-    process(clk)
-    
+    process (clk)
     begin
     
-        if falling_edge(clk) then
-        	
+        if falling_edge(clk) then	
             if reset = '1' then
             	state <= IDLE;
 		
             else
-            	
+     	
                 case state is
                 
-                    when IDLE =>
-                	
+                    when IDLE => 	
                         if send_to_spi = '1' then
                     	    load <= '1';
                     	    state <= SEND;
@@ -73,18 +70,13 @@ begin
             		    ss_r <= '0';
             		    sendclk <= '0';
             		    spi_recieved <= '0';
-                    
                         end if;
                     
-                    when SEND =>
-                	
+                    when SEND =>  
                         if cnt < to_integer(unsigned(length)) then
-                    	
                             sendclk <= '1';
-                        
                             if bitcnt < 8 then
                                 spi_recieved <= '0';
-                            
                                 if load = '1' then
                                     mosi_r <= t_data;
                                     load   <= '0';
@@ -106,7 +98,6 @@ begin
                                 ss_r <= '0';
                                 bitcnt <= 0;
                                 state <= WAIT_FOR_NB;                ---- length more than 8 bits wait for next bit -----
-                        
                             end if;    
      			 	
                         else
@@ -116,11 +107,9 @@ begin
                             sendclk <= '0';
                             ss_r <= '0';
                             state <= IDLE;
-                    
                         end if;
                     
                     when WAIT_FOR_NB =>
-                
                         spi_recieved <= '0';
                         if cnt = 15 then
                             state <= IDLE;
@@ -134,9 +123,7 @@ begin
                         end if;
                     
             	end case;
-	
-            end if;
-		    
+            end if;	    
         end if;  
 		
     end process;
@@ -149,8 +136,7 @@ begin
     ss3    <= not(ss_r and (addr(0) and addr(1)));
     sclk   <= sclk_r;
     
-    process(clk)
-    
+    process (clk)  
     begin
         if sendclk = '1' then
             sclk_r <= clk;
@@ -160,27 +146,18 @@ begin
         
     end process;
     
-    process(sclk_r)
+    process (sclk_r)
     begin
     	if rising_edge(sclk_r) then
-		
-            if ss_r = '1' then
-		    
-                if r_bitcnt = 7 then
-			
-                    r_bitcnt <= 0;
-		    
+            if ss_r = '1' then    
+                if r_bitcnt = 7 then	
+                    r_bitcnt <= 0;    
                 end if;
-                r_data_r(r_bitcnt) <= miso;
-		    
-                if r_bitcnt < 7 then
-			
-                    r_bitcnt <= r_bitcnt + 1;
-		    
-            	end if;
-			
+                r_data_r(r_bitcnt) <= miso;    
+                if r_bitcnt < 7 then	
+                    r_bitcnt <= r_bitcnt + 1;    
+            	end if;	
             end if;
-        
         end if;
     
     end process;

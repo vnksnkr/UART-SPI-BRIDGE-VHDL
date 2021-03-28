@@ -31,7 +31,7 @@ end entity spimaster;
 
 architecture RTL of spimaster is
 	
-    type SM is (IDLE,SEND, WAIT_FOR_NB);
+    type SM is (IDLE, SEND, WAIT_FOR_NB);
 
     signal state   : SM := IDLE;
         

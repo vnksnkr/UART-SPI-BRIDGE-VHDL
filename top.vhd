@@ -1,23 +1,16 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: Vinayak Sankar
--- 
--- Create Date: 26.03.2021 01:37:03
--- Design Name: 
--- Module Name: top
--- Project Name: SPI-UART-BRIDGE
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------
+--  top.vhd
+--	Top module of SPI-UART Bridge
+--	
+--
+--  Copyright (C) 2021 Vinayak Sankar
+--
+--	This program is free software: you can redistribute it and/or
+--	modify it under the terms of the GNU General Public License
+--	as published by the Free Software Foundation, either version
+--	2 of the License, or (at your option) any later version.
+--
+----------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;

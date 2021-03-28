@@ -55,9 +55,9 @@ begin
                     else
                         r_length <= from_uart(4 downto 0);
                         r_addr   <= from_uart(6 downto 5);
-                        mode     <= from_uart(7);
-            
-                        if from_uart(7) = '0' then
+                        mode     <= from_uart(7);     
+                        
+	                if from_uart(7) = '0' then
                             state <= WAIT_DATA;
                                 
                         else
@@ -114,8 +114,7 @@ begin
     end process;
         
     process (clk)
-    begin
-		
+    begin		
             if rising_edge(clk) then    
                 if spi_recieved = '1' and mode = '1' then          ----- sending start signal to uart port of bridge -----
                     r_send_to_uart <= '1';

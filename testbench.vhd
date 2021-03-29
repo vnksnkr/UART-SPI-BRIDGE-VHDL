@@ -55,10 +55,9 @@ architecture tb of testbench is
 begin
 
     top_inst : entity work.top
-        generic map(
-            CLKS_PER_BIT => c_CLKS_PER_BIT
-        )
-        port map(
+        generic map (
+            CLKS_PER_BIT => c_CLKS_PER_BIT )
+        port map (
             clk => clk,
             din => din,
             start => start,
@@ -67,8 +66,8 @@ begin
             spi0_slave_data => spi0_slave_data,
             spi1_slave_data => spi1_slave_data,
             spi2_slave_data => spi2_slave_data,
-            spi3_slave_data => spi3_slave_data
-        );
+            spi3_slave_data => spi3_slave_data );
+
     clk <= not clk after CLK_PERIOD/2;
 
     process

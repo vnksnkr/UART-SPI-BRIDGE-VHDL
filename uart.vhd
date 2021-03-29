@@ -39,23 +39,21 @@ architecture RTL of uart is
 begin
 
     uart_rx_inst : entity work.uart_rx
-        port map(
+        port map (
             clk => clk,
             rx => rx,
 
             rx_bytes => rx_bytes,
-            rx_dv => rx_dv
-        );
+            rx_dv => rx_dv );
 
     uart_tx_inst : entity work.uart_tx
-        port map(
+        port map (
             clk => clk,
             start => start,
             din => din,
 
             tx => tx,
             tx_done => tx_done,
-            tx_busy => tx_busy
-        );
+            tx_busy => tx_busy );
 
 end RTL;
